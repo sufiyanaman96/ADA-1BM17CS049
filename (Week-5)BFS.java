@@ -1,65 +1,52 @@
 import java.util.*;
-
+import java.util.Queue;
+import java.util.LinkedList;
 class BFS
-{ static int queue[]= new int [20];
-  static int queue_front=0, queue_end=0;
-  static int visited[]=new int[5];  
-  static int G[][] = new int[5][5];
-  static int e=0,v=0;
+{
+ public static int adj[][]=new int [10][10];
+ public static int n=0;
+ public static int v[]= new int[10];
+ 
+public static void input()
+{       Scanner in = new Scanner (System.in);
+   System.out.println("enter the number of nodes");
+   n=in.nextInt();
+   for(int i=0;i<n;i++){
+       v[i]=0;
+   }
+   System.out.println("enter adjacent matrix");
+   for(int i=0;i<n;i++){
+       for(int j=0;j<n;j++){
+           adj[i][j]=in.nextInt();
+       }
+   }
+}
+public static void BFS(int k)
+{
+   Queue <Integer> q = new LinkedList<>();
+   v[k]=1;
+   System.out.println(k);
+   q.add(k);
+   while(!q.isEmpty()){
+       int f= q.remove();
+       
+       for(int i=0;i<n;i++){
+           if(adj[f][i]==1){
+               if(v[i]==0){
+                   q.add(i);
+                   v[i]=1;
+                   System.out.println(i);
+               }
+           }
+       }
+   }
+}
+public static void main(String args[])
+{       Scanner in = new Scanner (System.in);
+   input();
+   System.out.println("enter the source vertex");
+   int start= in.nextInt();
+   BFS(start);
+}
+}
 
-  public static void enqueue(int v) 
-  {
-   queue[queue_end] = v;
-   queue_end++;
-  }
-  public static int dequeue() 
-  {
-    int index = queue_front;
-    queue_front++;
-    return queue[index];
-  }  
-
-  public static void bfs ( int n , int source , int adj[][] )
-  { int i=0;
-    for ( i=0; i <= v; i++ )
-    { visited [i]=0;
-    }
-    visited [source]=1;
-    enqueue(source);
-    System.out.println(source);
-    while ( queue_front <= queue_end )
-    {
-     int f=dequeue();
-     
-     for(int j = 0; j < n; j++)
-     {
-      if( adj[f][j] == 1) 
-      { if ( visited[j]==0 )
-       {
-        visited[j] = 1;
-        enqueue(j);
-        System.out.println(j); }
-      }
-     }
-    }
-  }
-  public static void main ( String args [] )
- {
-   Scanner in =new Scanner ( System.in);
-   
-   System.out.println("Enter the number of vertices:");
-   int n = in.nextInt();
-   int adj[][]= new int [n][n];
-   System.out.println("Enter the adjacency matrix ");
-   for ( int i=0; i<n; i++)
-   {
-     for ( int j=0; j<n; j++)
-     {
-       adj[i][j]=in.nextInt();
-     }
-   }   
-   System.out.println("Enter the starting index ( source ):" );
-   int source = in.nextInt();
-   bfs ( n,source,adj);
- }
-}   
