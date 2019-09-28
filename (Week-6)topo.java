@@ -1,40 +1,62 @@
 import java.util.*;
 
-class topo_sorting
-{   
-    public static int N;
-    public static int[][] matrix = new int[100][100];
-    public static boolean topo( int matrix[][])
-    {
-       int i;
-       for(i=0;i<N;i++)
-        {
-         int x=sum(matrix[i]);
-         if (x>0) continue;
-         else
-         {
-          for ( int z=0;z<N;z++)
-                  {   matrix[i][z]=0; 
-                      System.out.println(i);
-                  }  
-         }  
-       }
-    }
-
-    public static void main(String[] args)
-    {
-        int N=4;
-        int [][] tasks= {{1,0},{2,0},{3,1},{3,2}};
-        
-        for(int i=0;i<N;i++)
-        {
-          for(int j=0;j<N;j++)
-                matrix[i][j]=0;
+class Main 
+{ 
+ public static int a[][]=new int[10][10];
+ public static int n=0;
+ public static void input()
+ {  Scanner in= new Scanner(System.in);
+    int c=0,b=0;
+    System.out.println("Enter no. of tasks ");
+    n=in.nextInt();
+    for(int i=0; i<n; i++)
+      {  for(int j=0; j<n; j++)
+        {    a[i][j]=0;
         }
-        for (int x : tasks) 
-        {  matrix[x[0]][x[1]]=1;
+      }
+    while(c!= -1 || b!=-1)
+     {   
+        System.out.println("Enter dependencies [b:c]........[-1,-1] to stop");
+        b=in.nextInt();
+        c=in.nextInt();
+        if(c!= -1 || b!=-1)
+        {    a[c][b]=1;  }
+     }
+ }
+ public static void findorder()
+ {  int indegree[]=new int[10],k,top=-1;
+    int s[]= new int[10]; 
+    for(int i=0 ;i<n; i++)
+     {   indegree[i]=0;
+        for(int j=0; j<n; j++)
+        {   indegree[i] +=a[j][i];
         }
-       
-        topo(matrix);
+     }
+    for(int i=0;i<n;i++)
+     {       if(indegree[i]==0)
+              {  s[++top]=i;
+              }
+     }
+    while(top!=-1 )
+     {       
+       k=s[top--];
+       System.out.println(k);
+       indegree[k]=-1;
+       for(int r=0; r<n; r++)
+        {  
+          if(a[k][r]==1)
+           {   indegree[r] -=1;
+                    if(indegree[r]== 0)
+                    {    s[++top]=r;
+                    }
+           }
+           
+        }
     }
+ }
+ public static void main(String args[])
+ {
+    input();
+    findorder();
+ }
 }
