@@ -423,25 +423,13 @@ public static void main(String[] args) throws Exception
                }
 }     }              
 9aC++...
-int main()
+import java,util.*;
+
+class Array
 {
-    int *a,i,start,end,mid,rpnt,n,key,flag=0;
-    printf("Enter the size of the array : ");
-    scanf("%d",&n);
-    a=(int*)malloc(n*sizeof(int));
-    printf("Enter the elements of the array :\n");
-    for(i=0;i<n;i++)
-    {
-        scanf("%d",&a[i]);
-        if(a[i]<a[i-1])
-        {
-            rpnt=i;
-        }
-    }
-    printf("Enter the key value : ");
-    scanf("%d",&key);
-    //searching
-    if(key>=a[0])
+ public static void func( int a, int rpnt, int key)
+ {   int start,end;
+     if(key>=a[0])
     {
         start=0;
         end=rpnt-1;
@@ -456,7 +444,7 @@ int main()
         mid=start+(end-start)/2;
         if(a[mid]==key)
         {
-            printf("key found at index %d",mid);
+            System.out.println("key found at index "+mid);
             flag=1;
             break;
         }
@@ -470,7 +458,27 @@ int main()
         }
     }
     if(flag==0)
-        printf("key not found..!!");
+       System.out.println("key not found..!!");
+ public static void main ( String args[])
+ {   Scanner in=new Scanner (System.in);
+    int i,rpnt,n,key,flag=0;
+    System.out.println("Enter the size of the array : ");
+    n=in.nextInt();
+    int [] a= new int [n];
+    System.out.println("Enter the elements of the array :");
+    for(i=0;i<n;i++)
+    {
+        a[i]=in.nextInt();
+        if(a[i]<a[i-1])
+        {
+            rpnt=i;
+        }
+    }
+    System.out.println("Enter the key value : ");
+    key=in.nextInt();
+    func(a,rpnt,key);
+    
+ }
 }
 10..
 public class RatMaze { 
