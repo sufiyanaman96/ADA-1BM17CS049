@@ -1,0 +1,49 @@
+2..
+def dfs(v):
+    print(v)
+    visited[v] = 1
+    for i in range(n):
+        if arr[v][i] and not visited[i]:
+            dfs(i)
+
+def connected():
+    for i in range(n):
+        if not visited[i]:
+            dfs(i)
+            print("\n")
+
+arr = [[0 for i in range(5)] for j in range(5)]
+visited = [0]*5
+n = 5
+
+for i in range(n):
+    for j in range(n):
+        t = int(input())
+        arr[i][j] = t
+    visited[i] = 0
+
+connected()
+
+5...
+tasks=[[0,1],[4,0],[4,1],[2,4],[3,4],[5,3],[5,2]]
+n=6
+
+arr=[[0]*(n) for x in range(n)]
+li=[]
+
+for val in tasks:
+	arr[val[0]][val[1]]=1
+for i in range(len(arr)) :
+	if not sum(arr[i]) :
+		continue
+	for j in range(len(arr)) :
+		if j not in li :
+			indegree=sum(arr[j])
+			if indegree: continue
+			if indegree==0 :
+				li.append(j)
+				for a in range(len(arr)) :
+					arr[a][j]=0
+					
+if len(li)!=n : print([])
+else : print(li)
